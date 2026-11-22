@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d19">
+
+  <title>Admin Registration | Along Digital</title>
+
+  <link rel="stylesheet" href="entry.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="brand">
+      ALONG <span>DIGITAL</span>
+    </div>
+
+    <a href="login.html" class="login-link">
+      Already registered? Login
+    </a>
+  </header>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+
+    <section class="registration-card">
+
+      <div class="heading">
+        <span class="eyebrow">ADMIN PORTAL</span>
+
+        <h1>Create Admin Account</h1>
+
+        <p>
+          Register your administrator account to access
+          the Along Digital dashboard.
+        </p>
+      </div>
+
+
+      <!-- REGISTRATION FORM -->
+      <form id="adminForm">
+
+        <!-- PERSONAL DETAILS -->
+        <div class="section-title">
+          <span>01</span>
+          Personal Information
+        </div>
+
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+          >
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="userID">User ID</label>
+
+            <input
+              type="text"
+              id="userID"
+              name="userID"
+              placeholder="Create unique User ID"
+              autocomplete="username"
+              minlength="4"
+              required
+            >
+
+            <small>This will be your primary login ID.</small>
+          </div>
+
+
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              placeholder="Enter mobile number"
+              autocomplete="tel"
+              required
+            >
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@email.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+
+        <!-- PASSWORD -->
+        <div class="section-title">
+          <span>02</span>
+          Account Security
+        </div>
+
+        <div class="form-group">
+          <label for="password">Create Password</label>
+
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a strong password"
+              autocomplete="new-password"
+              minlength="10"
+              required
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              data-target="password"
+            >
+              Show
+            </button>
+          </div>
+
+          <small>Minimum 10 characters required.</small>
+        </div>
+
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Re-enter your password"
+              autocomplete="new-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              data-target="confirmPassword"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+
+        <!-- ACTIVATION KEY -->
+        <div class="section-title">
+          <span>03</span>
+          Authorization
+        </div>
+
+        <div class="form-group">
+          <label for="activationKey">Activation Key</label>
+
+          <input
+            type="text"
+            id="activationKey"
+            name="activationKey"
+            placeholder="Enter your activation key"
+            autocomplete="off"
+            required
+          >
+
+          <small>
+            Obtain your single-use activation key from Super Admin.
+          </small>
+        </div>
+
+
+        <!-- SECURITY QUESTIONS -->
+        <div class="section-title">
+          <span>04</span>
+          Account Recovery
+        </div>
+
+        <p class="section-description">
+          Set two security questions. These will help you
+          recover your account if you forget your password.
+        </p>
+
+
+        <div class="form-group">
+          <label for="securityQuestion1">
+            Security Question 1
+          </label>
+
+          <select
+            id="securityQuestion1"
+            name="securityQuestion1"
+            required
+          >
+            <option value="">Select a security question</option>
+            <option value="What was the name of your first school?">
+              What was the name of your first school?
+            </option>
+            <option value="What is your favourite childhood memory?">
+              What is your favourite childhood memory?
+            </option>
+            <option value="What was your childhood nickname?">
+              What was your childhood nickname?
+            </option>
+            <option value="What is the name of your first teacher?">
+              What is the name of your first teacher?
+            </option>
+            <option value="What was your first pet's name?">
+              What was your first pet's name?
+            </option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="securityAnswer1">
+            Answer 1
+          </label>
+
+          <input
+            type="text"
+            id="securityAnswer1"
+            name="securityAnswer1"
+            placeholder="Enter your answer"
+            autocomplete="off"
+            required
+          >
+        </div>
+
+
+        <div class="form-group">
+          <label for="securityQuestion2">
+            Security Question 2
+          </label>
+
+          <select
+            id="securityQuestion2"
+            name="securityQuestion2"
+            required
+          >
+            <option value="">Select another question</option>
+            <option value="What was the name of your first school?">
+              What was the name of your first school?
+            </option>
+            <option value="What is your favourite childhood memory?">
+              What is your favourite childhood memory?
+            </option>
+            <option value="What was your childhood nickname?">
+              What was your childhood nickname?
+            </option>
+            <option value="What is the name of your first teacher?">
+              What is the name of your first teacher?
+            </option>
+            <option value="What was your first pet's name?">
+              What was your first pet's name?
+            </option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="securityAnswer2">
+            Answer 2
+          </label>
+
+          <input
+            type="text"
+            id="securityAnswer2"
+            name="securityAnswer2"
+            placeholder="Enter your answer"
+            autocomplete="off"
+            required
+          >
+        </div>
+
+
+        <!-- MESSAGE AREA -->
+        <div id="message" role="status" aria-live="polite"></div>
+
+
+        <!-- SUBMIT -->
+        <button
+          type="submit"
+          id="submitBtn"
+          class="submit-btn"
+        >
+          Submit Registration
+        </button>
+
+
+        <p class="approval-note">
+          Your registration will remain pending until
+          approved by the Super Admin.
+        </p>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2026 ALL RIGHTS RESERVED
+    <br>
+    Designed by Shankar Singh Rajput under the Along Digital.
+  </footer>
+
+
+  <script src="entry.js"></script>
+
+</body>
+  </html>
+  
