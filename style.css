@@ -415,3 +415,138 @@ footer p {
   .hero h1 { letter-spacing: -3px; }
   .hero-visual { transform: scale(.85); }
   }
+
+/* NAVBAR ACTIVE STATE */
+nav a.active {
+  color: #b77cff;
+}
+
+/* CONTACT PAGE */
+.contact-page {
+  min-height: 85vh;
+  padding: 85px 8%;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+  gap: 65px;
+}
+
+.contact-heading {
+  position: sticky;
+  top: 140px;
+}
+
+.contact-heading h1 {
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -4px;
+}
+
+.contact-heading > p:last-child {
+  color: #9998ad;
+  line-height: 1.8;
+  margin-top: 25px;
+  max-width: 370px;
+}
+
+.contact-container {
+  background: #ffffff08;
+  border: 1px solid #ffffff1c;
+  border-radius: 18px;
+  padding: 35px;
+}
+
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d6d1e7;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: #10101e;
+  border: 1px solid #ffffff20;
+  color: white;
+  padding: 15px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: .3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #a66aff;
+  box-shadow: 0 0 15px #a66aff20;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #77758e;
+}
+
+.form-group select option {
+  background: #10101e;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  border: 0;
+  color: white;
+  cursor: pointer;
+  padding: 17px;
+}
+
+.form-status {
+  font-size: 12px;
+  color: #9998ad;
+  line-height: 1.6;
+}
+
+@media(max-width: 800px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+    padding: 65px 7%;
+    gap: 40px;
+  }
+
+  .contact-heading {
+    position: static;
+  }
+
+  .contact-container {
+    padding: 23px;
+  }
+}
+
+@media(max-width: 500px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
