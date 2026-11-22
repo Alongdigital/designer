@@ -1,36 +1,41 @@
 
 /* ==========================================
-   ALONG DIGITAL - ADMIN REGISTRATION
-   Frontend JavaScript
+   ALONG DIGITAL
+   ADMIN REGISTRATION JAVASCRIPT
+   Backend: Google Apps Script
 ========================================== */
 
-// 1. GOOGLE APPS SCRIPT WEB APP URL
-const SCRIPT_URL = "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE";
+
+/* 1. BACKEND URL */
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuuhjRrvIjIfItJ0DuD7z9iNJmGxfOSHf1xxx3wvHsUhULyrSkkO55gOJCRW-fnnJpww/exec";
 
 
-// 2. ELEMENTS
+/* 2. ELEMENTS */
+
 const adminForm = document.querySelector("#adminForm");
 const message = document.querySelector("#message");
 const submitBtn = document.querySelector("#submitBtn");
 
 
-// 3. SHOW MESSAGE
-function showMessage(text, success = false) {
+/* 3. SHOW MESSAGE */
+
+function showMessage(text, type = "error") {
 
   message.textContent = text;
-
-  message.className = success ? "success" : "error";
-
+  message.className = type;
   message.style.display = "block";
 
   message.scrollIntoView({
     behavior: "smooth",
     block: "center"
   });
+
 }
 
 
-// 4. HIDE MESSAGE
+/* 4. HIDE MESSAGE */
+
 function hideMessage() {
 
   message.textContent = "";
@@ -40,7 +45,8 @@ function hideMessage() {
 }
 
 
-// 5. PASSWORD SHOW / HIDE
+/* 5. PASSWORD SHOW / HIDE */
+
 document.querySelectorAll(".toggle-password").forEach(button => {
 
   button.addEventListener("click", () => {
@@ -51,99 +57,144 @@ document.querySelectorAll(".toggle-password").forEach(button => {
 
     if (!target) return;
 
-    if (target.type === "password") {
+    const isPassword = target.type === "password";
 
-      target.type = "text";
-      button.textContent = "Hide";
+    target.type = isPassword ? "text" : "password";
 
-    } else {
-
-      target.type = "password";
-      button.textContent = "Show";
-
-    }
+    button.textContent = isPassword ? "Hide" : "Show";
 
   });
 
 });
 
 
-// 6. FORM SUBMISSION
+/* 6. PREVENT SAME SECURITY QUESTIONS */
+
+const question1 = document.querySelector("#securityQuestion1");
+const question2 = document.querySelector("#securityQuestion2");
+
+function validateQuestions() {
+
+  if (
+    question1.value &&
+    question2.value &&
+    question1.value === question2.value
+  ) {
+
+    question2.setCustomValidity(
+      "Please select a different security question."
+    );
+
+  } else {
+
+    question2.setCustomValidity("");
+
+  }
+
+}
+
+question1.addEventListener("change", validateQuestions);
+question2.addEventListener("change", validateQuestions);
+
+
+/* 7. USER ID INPUT */
+
+document.querySelector("#userID").addEventListener("input", function() {
+
+  this.value = this.value.trim();
+
+});
+
+
+/* 8. FORM SUBMISSION */
+
 adminForm.addEventListener("submit", async function(event) {
 
   event.preventDefault();
 
   hideMessage();
 
-  // Get form values
-  const userID = document.querySelector("#userID").value.trim();
+  validateQuestions();
 
-  const fullName = document.querySelector("#fullName").value.trim();
-
-  const email = document.querySelector("#email").value.trim();
-
-  const mobile = document.querySelector("#mobile").value.trim();
-
-  const password = document.querySelector("#password").value;
-
-  const confirmPassword = document.querySelector("#confirmPassword").value;
-
-  const activationKey = document.querySelector("#activationKey").value.trim();
-
-  const securityQuestion1 = document.querySelector("#securityQuestion1").value;
-
-  const securityAnswer1 = document.querySelector("#securityAnswer1").value.trim();
-
-  const securityQuestion2 = document.querySelector("#securityQuestion2").value;
-
-  const securityAnswer2 = document.querySelector("#securityAnswer2").value.trim();
-
-
-  // 7. BASIC VALIDATION
-
-  if (!userID || !fullName || !email || !mobile) {
-
-    showMessage("Please complete all personal information.");
+  if (!adminForm.reportValidity()) {
     return;
-
   }
 
-  if (userID.length < 4) {
+
+  /* GET FORM DATA */
+
+  const formData = {
+
+    action: "createAdmin",
+
+    userID: document.querySelector("#userID").value.trim(),
+
+    fullName: document.querySelector("#fullName").value.trim(),
+
+    email: document.querySelector("#email").value.trim(),
+
+    mobile: document.querySelector("#mobile").value.trim(),
+
+    password: document.querySelector("#password").value,
+
+    confirmPassword: document.querySelector("#confirmPassword").value,
+
+    activationKey: document.querySelector("#activationKey").value.trim(),
+
+    securityQuestion1: question1.value,
+
+    securityAnswer1: document.querySelector("#securityAnswer1").value.trim(),
+
+    securityQuestion2: question2.value,
+
+    securityAnswer2: document.querySelector("#securityAnswer2").value.trim()
+
+  };
+
+
+  /* CLIENT-SIDE VALIDATION */
+
+  if (formData.userID.length < 4) {
 
     showMessage("User ID must contain at least 4 characters.");
     return;
 
   }
 
-  if (password.length < 10) {
+
+  if (!/^[a-zA-Z0-9._-]{4,32}$/.test(formData.userID)) {
+
+    showMessage("User ID contains invalid characters.");
+    return;
+
+  }
+
+
+  if (formData.password.length < 10) {
 
     showMessage("Password must contain at least 10 characters.");
     return;
 
   }
 
-  if (password !== confirmPassword) {
 
-    showMessage("Password and Confirm Password do not match.");
+  if (formData.password !== formData.confirmPassword) {
+
+    showMessage("Passwords do not match.");
     return;
 
   }
 
-  if (securityQuestion1 === securityQuestion2) {
+
+  if (formData.securityQuestion1 === formData.securityQuestion2) {
 
     showMessage("Please select two different security questions.");
     return;
 
   }
 
-  if (!securityAnswer1 || !securityAnswer2) {
 
-    showMessage("Please enter both security answers.");
-    return;
-
-  }
-
-  if (!activationKey) {
+  if (!formData.activationKey) {
 
     showMessage("Please enter your activation key.");
     return;
@@ -151,47 +202,15 @@ adminForm.addEventListener("submit", async function(event) {
   }
 
 
-  // 8. PREPARE DATA FOR BACKEND
-
-  const formData = {
-
-    action: "createAdmin",
-
-    userID: userID,
-
-    fullName: fullName,
-
-    email: email,
-
-    mobile: mobile,
-
-    password: password,
-
-    confirmPassword: confirmPassword,
-
-    activationKey: activationKey,
-
-    securityQuestion1: securityQuestion1,
-
-    securityAnswer1: securityAnswer1,
-
-    securityQuestion2: securityQuestion2,
-
-    securityAnswer2: securityAnswer2
-
-  };
-
-
-  // 9. LOADING STATE
+  /* LOADING STATE */
 
   submitBtn.disabled = true;
-
-  submitBtn.textContent = "Submitting Registration...";
+  submitBtn.textContent = "Submitting...";
 
 
   try {
 
-    // 10. SEND DATA TO GOOGLE APPS SCRIPT
+    /* SEND REQUEST TO GOOGLE APPS SCRIPT */
 
     const response = await fetch(SCRIPT_URL, {
 
@@ -201,14 +220,16 @@ adminForm.addEventListener("submit", async function(event) {
         "Content-Type": "text/plain;charset=utf-8"
       },
 
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
+
+      redirect: "follow"
 
     });
 
 
     if (!response.ok) {
 
-      throw new Error("Server connection failed.");
+      throw new Error("Server returned an error.");
 
     }
 
@@ -216,24 +237,27 @@ adminForm.addEventListener("submit", async function(event) {
     const result = await response.json();
 
 
-    // 11. HANDLE RESPONSE
+    /* HANDLE BACKEND RESPONSE */
 
-    if (result.success) {
+    if (result.success === true) {
 
       showMessage(
-        result.message || "Registration submitted successfully.",
-        true
+        result.message || "Registration successful.",
+        "success"
       );
 
       adminForm.reset();
+
+      // Reset password visibility
+      document.querySelectorAll(".password-wrapper input").forEach(input => {
+        input.type = "password";
+      });
 
       document.querySelectorAll(".toggle-password").forEach(button => {
         button.textContent = "Show";
       });
 
-      document.querySelectorAll(".password-wrapper input").forEach(input => {
-        input.type = "password";
-      });
+      question2.setCustomValidity("");
 
     } else {
 
@@ -246,21 +270,24 @@ adminForm.addEventListener("submit", async function(event) {
 
   } catch (error) {
 
-    console.error("Registration Error:", error);
+    console.error("Along Digital Registration Error:", error);
 
     showMessage(
-      "Unable to connect to the server. Please check your internet connection and backend URL."
+      "Unable to connect to the server. Please check your internet connection and Web App URL."
     );
 
   } finally {
 
-    // 12. RESET BUTTON
-
     submitBtn.disabled = false;
-
     submitBtn.textContent = "Submit Registration";
 
   }
 
 });
-    
+
+
+/* 9. INITIALIZATION */
+
+hideMessage();
+
+console.log("Along Digital Registration JS Loaded Successfully.");
