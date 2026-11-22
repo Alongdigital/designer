@@ -1,29 +1,32 @@
+
 const menu = document.getElementById("menu");
 const nav = document.getElementById("nav");
 
-menu.addEventListener("click", () => {
-  nav.classList.toggle("active");
-  menu.textContent = nav.classList.contains("active") ? "✕" : "☰";
-});
-
-document.querySelectorAll("#nav a").forEach(link => {
-  link.addEventListener("click", () => {
-    nav.classList.remove("active");
-    menu.textContent = "☰";
+if (menu && nav) {
+  menu.addEventListener("click", () => {
+    nav.classList.toggle("active");
+    menu.textContent = nav.classList.contains("active") ? "✕" : "☰";
   });
-});
 
-// Reveal animation on scroll
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("active");
+      menu.textContent = "☰";
+    });
+  });
+}
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.animate(
         [
-          { opacity: 0, transform: "translateY(35px)" },
+          { opacity: 0, transform: "translateY(30px)" },
           { opacity: 1, transform: "translateY(0)" }
         ],
-        { duration: 850, easing: "ease-out", fill: "forwards" }
+        { duration: 800, easing: "ease-out", fill: "forwards" }
       );
+
       observer.unobserve(entry.target);
     }
   });
@@ -31,5 +34,6 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll(".section").forEach(section => {
   section.style.opacity = "0";
-  observer.observe(section);
+  observer.observe(section
+                  );
 });
