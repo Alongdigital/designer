@@ -549,4 +549,18 @@ nav a.active {
     grid-template-columns: 1fr;
   }
 }
+.other-btn {
+  padding: 15px 24px;
+  border-radius: 9px;
+  background: linear-gradient(110deg, orange, yellow);
+  font-size: 13px;
+  font-weight: 700;
+  transition: .3s;
+}
+.other-btn :hover{
+  color: black;
+  background: saffron;
+  border-radius: 8px;
+  font-size: 13px;
+}
 
