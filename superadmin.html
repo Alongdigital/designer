@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d19">
+
+  <title>Super Admin | Along Digital</title>
+
+  <link rel="stylesheet" href="superadmin.css">
+</head>
+
+<body>
+
+  <!-- LOGIN PAGE -->
+  <main id="loginPage" class="login-page">
+
+    <section class="login-card">
+
+      <div class="brand">
+        ALONG <span>DIGITAL</span>
+      </div>
+
+      <div class="login-heading">
+        <span class="eyebrow">SECURE ADMINISTRATION</span>
+        <h1>Super Admin</h1>
+        <p>Sign in to manage the Along Digital system.</p>
+      </div>
+
+      <form id="superAdminForm">
+
+        <div class="form-group">
+          <label for="superUserID">Super Admin User ID</label>
+          <input
+            type="text"
+            id="superUserID"
+            placeholder="Enter User ID"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="superPassword">Password</label>
+          <div class="password-box">
+            <input
+              type="password"
+              id="superPassword"
+              placeholder="Enter password"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="toggle-password"
+              data-target="superPassword">Show</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="secretKey">Secret Key</label>
+          <div class="password-box">
+            <input
+              type="password"
+              id="secretKey"
+              placeholder="Enter secret key"
+              autocomplete="off"
+              required
+            >
+            <button type="button" class="toggle-password"
+              data-target="secretKey">Show</button>
+          </div>
+        </div>
+
+        <div id="loginMessage" role="status" aria-live="polite"></div>
+
+        <button type="submit" id="loginBtn">
+          Secure Login
+        </button>
+
+      </form>
+
+      <p class="security-note">
+        <span>●</span> Authorized Super Admin access only
+      </p>
+
+    </section>
+  </main>
+
+
+  <!-- SUPER ADMIN DASHBOARD -->
+  <div id="dashboardPage" class="dashboard-page" hidden>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-brand">
+        ALONG <span>DIGITAL</span>
+        <small>SUPER ADMIN PANEL</small>
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <p class="nav-heading">MAIN MENU</p>
+
+        <button class="nav-link active" data-section="overview">
+          <span>▦</span> Overview
+        </button>
+
+        <button class="nav-link" data-section="keyGenerator">
+          <span>⌘</span> Activation Keys
+        </button>
+
+        <button class="nav-link" data-section="adminManagement">
+          <span>♙</span> Admin Management
+        </button>
+
+        <p class="nav-heading">MANAGEMENT</p>
+
+        <button class="nav-link" data-section="emailTemplates">
+          <span>✉</span> Email Templates
+        </button>
+
+        <button class="nav-link" data-section="entryRecords">
+          <span>▤</span> Entry Records
+        </button>
+
+        <button class="nav-link" data-section="activityLogs">
+          <span>◷</span> Activity Logs
+        </button>
+
+        <p class="nav-heading">SYSTEM</p>
+
+        <button class="nav-link" data-section="settings">
+          <span>⚙</span> Settings
+        </button>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="admin-profile">
+          <div class="profile-avatar">SA</div>
+          <div>
+            <strong id="superAdminName">Super Admin</strong>
+            <small>System Administrator</small>
+          </div>
+        </div>
+
+        <button id="logoutBtn" class="logout-btn">
+          ⇥ Logout
+        </button>
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN AREA -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <button id="menuToggle" class="menu-toggle"
+          type="button">☰</button>
+
+        <div>
+          <span class="eyebrow">ALONG DIGITAL / CONTROL CENTER</span>
+          <h2 id="pageTitle">Overview</h2>
+        </div>
+
+        <div class="topbar-status">
+          <span class="status-dot"></span>
+          System Panel
+        </div>
+      </header>
+
+
+      <div class="content-area">
+
+        <!-- OVERVIEW -->
+        <section class="dashboard-section active" id="overview">
+
+          <div class="welcome-section">
+            <div>
+              <span class="eyebrow">DASHBOARD</span>
+              <h1>Welcome, Super Admin</h1>
+              <p>Manage administrators, activation keys and system records.</p>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+
+            <article class="stat-card">
+              <span>Total Admins</span>
+              <h2 id="totalAdmins">—</h2>
+              <small>Registered accounts</small>
+            </article>
+
+            <article class="stat-card">
+              <span>Pending Approvals</span>
+              <h2 id="pendingAdmins">—</h2>
+              <small>Awaiting approval</small>
+            </article>
+
+            <article class="stat-card">
+              <span>Unused Keys</span>
+              <h2 id="unusedKeys">—</h2>
+              <small>Available activation keys</small>
+            </article>
+
+            <article class="stat-card">
+              <span>Used Keys</span>
+              <h2 id="usedKeys">—</h2>
+              <small>Already redeemed</small>
+            </article>
+
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-heading">
+              <div>
+                <h3>Quick Actions</h3>
+                <p>Frequently used administration tools</p>
+              </div>
+            </div>
+
+            <div class="quick-actions">
+              <button data-section="keyGenerator">
+                + Generate Activation Key
+              </button>
+
+              <button data-section="adminManagement">
+                Manage Admins
+              </button>
+
+              <button data-section="emailTemplates">
+                Create Admin Email
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- ACTIVATION KEY GENERATOR -->
+        <section class="dashboard-section" id="keyGenerator">
+
+          <div class="section-heading">
+            <span class="eyebrow">AUTHORIZATION</span>
+            <h1>Activation Key Generator</h1>
+            <p>Generate unique, single-use admin activation keys.</p>
+          </div>
+
+          <div class="panel-card">
+
+            <h3>Generate New Key</h3>
+
+            <form id="keyForm">
+
+              <div class="form-group">
+                <label for="keyExpiry">Key Validity</label>
+                <select id="keyExpiry" required>
+                  <option value="1">1 Day</option>
+                  <option value="3">3 Days</option>
+                  <option value="7" selected>7 Days</option>
+                  <option value="15">15 Days</option>
+                  <option value="30">30 Days</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="keyNote">Purpose / Note</label>
+                <input id="keyNote" type="text"
+                  placeholder="Optional note">
+              </div>
+
+              <button type="submit" id="generateKeyBtn">
+                Generate Activation Key
+              </button>
+
+            </form>
+
+            <div id="generatedKeyBox" hidden>
+              <p>Generated Activation Key</p>
+              <strong id="generatedKey"></strong>
+              <button type="button" id="copyKeyBtn">Copy Key</button>
+            </div>
+
+          </div>
+
+          <div class="panel-card">
+            <h3>Activation Key Records</h3>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Activation Key</th>
+                    <th>Status</th>
+                    <th>Expiry</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody id="keysTableBody">
+                  <tr>
+                    <td colspan="4">Loading records...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- ADMIN MANAGEMENT -->
+        <section class="dashboard-section" id="adminManagement">
+
+          <div class="section-heading">
+            <span class="eyebrow">USER CONTROL</span>
+            <h1>Admin Management</h1>
+            <p>Review and manage administrator accounts.</p>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminsTableBody">
+                  <tr>
+                    <td colspan="5">Loading records...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- EMAIL TEMPLATE -->
+        <section class="dashboard-section" id="emailTemplates">
+
+          <div class="section-heading">
+            <span class="eyebrow">COMMUNICATION</span>
+            <h1>Email Template Generator</h1>
+            <p>Prepare an activation email for a new administrator.</p>
+          </div>
+
+          <div class="panel-card">
+
+            <form id="emailForm">
+
+              <div class="form-group">
+                <label for="adminName">Admin Name</label>
+                <input id="adminName" type="text"
+                  placeholder="Enter admin name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="adminEmail">Admin Email</label>
+                <input id="adminEmail" type="email"
+                  placeholder="Enter admin email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="adminUserID">Admin User ID</label>
+                <input id="adminUserID" type="text"
+                  placeholder="Enter User ID" required>
+              </div>
+
+              <div class="form-group">
+                <label for="emailActivationKey">Activation Key</label>
+                <input id="emailActivationKey" type="text"
+                  placeholder="Paste generated key" required>
+              </div>
+
+              <button type="submit">Generate Email</button>
+
+            </form>
+
+            <div class="form-group">
+              <label for="emailPreview">Email Preview</label>
+              <textarea id="emailPreview" rows="12"
+                placeholder="Generated email will appear here..."></textarea>
+            </div>
+
+            <button type="button" id="sendEmailBtn">
+              Open Email App
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- ENTRY RECORDS -->
+        <section class="dashboard-section" id="entryRecords">
+
+          <div class="section-heading">
+            <span class="eyebrow">REGISTRATION</span>
+            <h1>Entry Records</h1>
+            <p>Review administrator registration submissions.</p>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Registration Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="entriesTableBody">
+                  <tr>
+                    <td colspan="5">Loading records...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- ACTIVITY LOGS -->
+        <section class="dashboard-section" id="activityLogs">
+
+          <div class="section-heading">
+            <span class="eyebrow">SYSTEM MONITORING</span>
+            <h1>Activity Logs</h1>
+            <p>Track important administrative activities.</p>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Activity</th>
+                    <th>Performed By</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody id="logsTableBody">
+                  <tr>
+                    <td colspan="4">Loading records...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+        <section class="dashboard-section" id="settings">
+
+          <div class="section-heading">
+            <span class="eyebrow">CONFIGURATION</span>
+            <h1>System Settings</h1>
+            <p>Super Admin account and system information.</p>
+          </div>
+
+          <div class="panel-card">
+            <h3>Account Information</h3>
+            <p>Logged-in account: <strong id="settingsUserID">—</strong></p>
+            <p>Role: <strong>Super Admin</strong></p>
+          </div>
+
+        </section>
+
+      </div>
+
+      <footer class="footer">
+        © 2026 ALL RIGHTS RESERVED
+        <br>
+        Designed by Shankar Singh Rajput under the Along Digital.
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script src="superadmin.js"></script>
+
+</body>
+  </html>
+  
